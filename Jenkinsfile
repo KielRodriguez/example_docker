@@ -17,11 +17,11 @@ pipeline {
               sh "rake db:create"
               sh "rake db:migrate"
               sh "rake test"
-
-            }
           }
         }
       }
+
     }
   }
+}
 }
