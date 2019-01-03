@@ -4,7 +4,7 @@ pipeline {
     stage('build') {
       steps {
         script {
-          container_custom = docker.build("example_docker:1.0.1")
+          container_custom = docker.build("example_docker:${GIT_COMMIT}", "--no-cache .")
         }
 
       }
