@@ -2,7 +2,7 @@ pipeline {
   agent any
   stages {
     stage('build') {
-      when { anyOf { branch: "develop"} }
+      when { anyOf { branch "develop"} }
       steps {
         script {
           container_custom = docker.build("example_docker:${GIT_COMMIT}")
@@ -11,7 +11,7 @@ pipeline {
       }
     }
     stage('test') {
-      when { anyOf { branch: "develop"} }
+      when { anyOf { branch "develop"} }
       steps {
         script {
           docker.image("postgres:9.6").withRun("-e POSTGRES_PASSWORD=secretpassword -e POSTGRES_USER=postgres -p 5432:5432") { c ->
@@ -29,14 +29,14 @@ pipeline {
 
     }
     stage('stage') {
-      when { anyOf { branch: "stage"} }
+      when { anyOf { branch "stage"} }
       steps {
         sh "upload image"
         sh "update image to stage environment"
       }
     }
     stage('deploy') {
-      when { anyOf { branch: "master"} }
+      when { anyOf { branch "master"} }
       steps {
         sh "upload stabe version docker image"
       }
