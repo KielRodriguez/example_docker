@@ -14,7 +14,7 @@ pipeline {
         script {
           docker.image("postgres:9.6").withRun("-e POSTGRES_PASSWORD=secretpassword -e POSTGRES_USER=postgres -p 5432:5432") { c ->
           docker.image("example_docker:${GIT_COMMIT}").inside("--link ${c.id}:db -e RAILS_ENV=test -e HOST=db") {
-            sh "echo ${RAILS_ENV}"              sh "rake db:create"
+            sh "rake db:create"
             sh "rake db:migrate"
             sh "rake test"
           }
