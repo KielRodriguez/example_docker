@@ -23,7 +23,7 @@ ADD Gemfile /project/Gemfile
 ADD Gemfile.lock /project/Gemfile.lock
 
 # Instalacion de manejador de paquetes rails
-RUN ["gem", "install", "bundler"]
+RUN ["gem", "install", "bundler", "-v", "1.17.3"]
 
 # Instalacion de paquetes
 RUN ["bundle", "install"]
