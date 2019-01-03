@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'ruby --version'
+        tool(name: 'ruby', type: '2.4.2')
       }
     }
   }
