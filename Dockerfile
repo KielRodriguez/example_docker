@@ -16,6 +16,18 @@ RUN ["mkdir", "-p", "/project"]
 # Pocisionarse en directorio del proyecto
 WORKDIR /project
 
+# Add Gemfile to directory project
+ADD Gemfile /project/Gemfile
+
+# Add Gemfile.lock to directory project
+ADD Gemfile.lock /project/Gemfile.lock
+
+# Instalacion de manejador de paquetes rails
+RUN ["gem", "install", "bundler"]
+
+# Instalacion de paquetes
+RUN ["bundle", "install"]
+
 # Agregar contenido de proyecto al directorio de proyecto
 ADD . /project
 
@@ -24,12 +36,6 @@ ENV RAILS_ENV=production
 
 # Crear metadatos de la aplicacion
 LABEL description="Ruby on rails project, test use dockerfile"
-
-# Instalacion de manejador de paquetes rails
-RUN ["gem", "install", "bundler"]
-
-# Instalacion de paquetes
-RUN ["bundle", "install"]
 
 # Definiendo valor por default del puerto (esto se puede sobreescribir)
 ARG port=8000
@@ -43,4 +49,4 @@ EXPOSE 3000
 RUN echo ${port}
 
 # Proceso de ejecución del contenedor
-CMD [ "rails", "server", "-p", "3000"]
+CMD bundle exec puma -C config/puma.rb
