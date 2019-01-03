@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'echo "Hola mundo"'
+        script {
+          container_custom = docker.build("example_docker:1.0")
+        }
+
       }
     }
   }
