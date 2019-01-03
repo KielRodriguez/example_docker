@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        tool(name: 'ruby', type: '2.4.2')
+        script {
+          container_custom = docker.build("example_docker:1.0.1")
+        }
+
       }
     }
   }
